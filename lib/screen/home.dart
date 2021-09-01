@@ -1,4 +1,9 @@
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:grape/widget/music_group_item.dart';
 import 'package:grape/widget/music_item.dart';
 import 'package:grape/widget/music_suggestion_box.dart';
 
@@ -10,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List _musicList = [1, 2, 3, 4];
+  List<int> _musicList = [1, 2, 3, 4];
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,61 @@ class _HomePageState extends State<HomePage> {
                   fit: BoxFit.cover,
                 );
               }),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "최신 노래",
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Text("국내",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.w600)),
+                          Text(
+                            " | ",
+                            style:
+                                TextStyle(color: Colors.black26, fontSize: 20),
+                          ),
+                          Text("해외",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            children: _musicList.map((int index) {
+                          return MusicGroupItem();
+                        }).toList()),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
         MusicSuggestionBox(
           backgroundColor: Color(0xFF552EC5),
@@ -58,6 +118,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: 4,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -68,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-        )
+        ),
       ],
     );
   }
