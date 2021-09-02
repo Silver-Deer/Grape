@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:grape/widget/music_group_item.dart';
 import 'package:grape/widget/music_item.dart';
 import 'package:grape/widget/music_suggestion_box.dart';
+import 'package:grape/widget/music_suggestion_horizontal_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -35,60 +35,37 @@ class _HomePageState extends State<HomePage> {
                 );
               }),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
+        MusicSuggestionHorizontalBox(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "최신 노래",
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+              ),
+              Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "최신 노래",
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          Text("국내",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.w600)),
-                          Text(
-                            " | ",
-                            style:
-                                TextStyle(color: Colors.black26, fontSize: 20),
-                          ),
-                          Text("해외",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w600)),
-                        ],
-                      ),
-                    ],
+                  Text("국내",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w600)),
+                  Text(
+                    " | ",
+                    style: TextStyle(color: Colors.black26, fontSize: 20),
                   ),
-                  SizedBox(height: 10),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                            children: _musicList.map((int index) {
-                          return MusicGroupItem();
-                        }).toList()),
-                      )
-                    ],
-                  )
+                  Text("해외",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black45,
+                          fontWeight: FontWeight.w600)),
                 ],
               ),
-            ),
+            ],
           ),
+          itemList: _musicList.map((int index) {
+            return MusicGroupItem();
+          }).toList(),
         ),
         MusicSuggestionBox(
           backgroundColor: Color(0xFF552EC5),
