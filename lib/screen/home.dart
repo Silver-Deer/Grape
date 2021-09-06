@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:grape/widget/music_group_item.dart';
 import 'package:grape/widget/music_item.dart';
+import 'package:grape/widget/music_seggestion_banner.dart';
 import 'package:grape/widget/music_suggestion_box.dart';
 import 'package:grape/widget/music_suggestion_horizontal_box.dart';
 
@@ -22,18 +23,15 @@ class _HomePageState extends State<HomePage> {
     return ListView(
       children: [
         Container(
-          height: 250,
-          width: double.infinity,
+          height: 350,
           child: PageView.builder(
-              scrollDirection: Axis.horizontal,
-              controller: PageController(initialPage: 0),
-              itemCount: 5,
-              itemBuilder: (_, index) {
-                return Image.network(
-                  'https://picsum.photos/400/200',
-                  fit: BoxFit.cover,
-                );
-              }),
+            scrollDirection: Axis.horizontal,
+            controller: PageController(initialPage: 0),
+            itemCount: 3,
+            itemBuilder: (_, index) {
+              return MusicSuggestionBanner(musicItem: [1, 2, 3, 4]);
+            },
+          ),
         ),
         MusicSuggestionHorizontalBox(
           title: Row(
